@@ -135,7 +135,7 @@ export function Welcome() {
         Welcome To Remixitt
       </h1>
       <h2 className="text-secondary font-extrabold text-3xl xs:text-4xl md:text-5xl leading-tight mt-4">
-        A Better way to use Reddit
+        A Simpler way to use Reddit
       </h2>
       <div className="inline-flex mt-12">
         <a href={loginUrl} className="p-2 my-5 mx-2 bg-green-300 hover:bg-green-500 font-bold text-white hover:text-primary rounded border-2 border-transparent hover:border-green-800 shadow-md transition duration-500 md:text-xl">
