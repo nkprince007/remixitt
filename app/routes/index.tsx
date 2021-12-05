@@ -4,7 +4,6 @@ import { MetaFunction, LoaderFunction, Form, ActionFunction, redirect, json, use
 import { useLoaderData } from "remix";
 import { getLoginUrl, checkLoggedIn, getPosts, RedditPost, getAuthData, refreshToken, redditCookie } from "~/reddit";
 import { decode } from "html-entities";
-import invariant from "tiny-invariant";
 
 type IndexData = {
   loginUrl: string;
