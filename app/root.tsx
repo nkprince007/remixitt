@@ -12,13 +12,11 @@ import type { LinksFunction, LoaderFunction } from "remix";
 
 import tailwindStylesUrl from "~/styles/tailwind.css";
 import globalStylesUrl from "~/styles/global.css";
-import { getLoginUrl, redditCookie } from "~/reddit";
+import { checkLoggedIn, getLoginUrl } from "~/reddit";
 
 type RootData = {
   loginUrl: string;
-  authData: {
-    [key: string]: string;
-  };
+  isLoggedIn: boolean;
 }
 
 export let links: LinksFunction = () => {
@@ -29,10 +27,9 @@ export let links: LinksFunction = () => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-  const cookieHeader = request.headers.get("Cookie");
-  const authData = (await redditCookie.parse(cookieHeader)) || null;
+  const isLoggedIn = await checkLoggedIn(request);
   const loginUrl = getLoginUrl();
-  return { loginUrl, authData };
+  return { loginUrl, isLoggedIn };
 }
 
 export default function App() {
@@ -126,7 +123,7 @@ function Document({
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
-  const { loginUrl, authData } = useLoaderData<RootData>();
+  const { loginUrl, isLoggedIn } = useLoaderData<RootData>();
 
   return (
     <div className="app flex flex-col">
@@ -136,6 +133,11 @@ function Layout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
+            <p className="text-primary font-semibold">
+              Built with <span className="font-normal">❤️</span> using&nbsp;
+              <a target="_blank" className="text-secondary underline" href="https://remix.run/">Remix</a> &amp;&nbsp;
+              <a target="_blank" className="text-secondary underline" href="https://tailwindcss.com/">tailwindcss</a>
+            </p>
             {/* <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                 Home
               </a>
@@ -147,9 +149,11 @@ function Layout({ children }: { children: React.ReactNode }) {
               </a> */}
           </div>
           <div>
-            <a href={loginUrl} className="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-white hover:border-transparent hover:bg-green-700 mt-4 lg:mt-0">
-              {authData ? "Logout" : "Login"}
-            </a>
+            {!isLoggedIn && (
+              <a href={loginUrl} className="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-white hover:border-transparent hover:bg-green-700 mt-4 lg:mt-0">
+                Login
+              </a>
+            )}
           </div>
         </div>
       </nav>
