@@ -18,6 +18,7 @@ import {
   type RedditPost
 } from "~/reddit";
 import { decode } from "html-entities";
+import Loading from "~/components/loader";
 
 type IndexData = {
   loginUrl: string;
@@ -57,7 +58,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 export const PostImage = ({ post }: { post: RedditPost }) => {
   let thumbnail: string | null = /*post.preview?.images?.[0]?.source.url ||*/ post.thumbnail;
-  if (thumbnail === 'self' || thumbnail === 'default' || thumbnail === 'image') {
+  if (thumbnail === 'self' || thumbnail === 'default' || thumbnail === 'image' || thumbnail === 'nsfw') {
     thumbnail = null;
   }
 
@@ -117,9 +118,7 @@ export function Posts() {
 
   return (
     transition.state !== 'idle' ? (
-      <div className="w-full h-full flex justify-center items-center">
-        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-600 h-12 w-12"></div>
-      </div>
+      <Loading />
     ) : (
       <Form method="get">
         <div className="text-center">
