@@ -130,7 +130,9 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div className="app flex flex-col">
       <nav className="flex items-center justify-between flex-wrap bg-gray-900 p-6">
         <div className="flex items-center flex-shrink-0 text-primary mr-6">
-          <span className="font-semibold text-xl tracking-tight">Remixitt</span>
+          <a href="/">
+            <span className="font-semibold text-xl tracking-tight">Remixitt</span>
+          </a>
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
