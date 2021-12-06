@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData, redirect } from "remix";
+import { type LoaderFunction, redirect } from "remix";
 import { authorize, redditCookie } from "~/reddit";
 import invariant from "tiny-invariant";
 

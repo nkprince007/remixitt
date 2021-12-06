@@ -6,9 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-  useLoaderData
+  useLoaderData,
+  type LinksFunction,
+  type LoaderFunction,
 } from "remix";
-import type { LinksFunction, LoaderFunction } from "remix";
 
 import tailwindStylesUrl from "~/styles/tailwind.css";
 import globalStylesUrl from "~/styles/global.css";

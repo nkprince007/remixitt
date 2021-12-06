@@ -1,8 +1,13 @@
-import type { MetaFunction, LoaderFunction } from "remix";
-import type { RedditPost } from "~/reddit";
 import moment from "moment";
 import React from "react";
-import { Form, redirect, useTransition, useLoaderData } from "remix";
+import {
+  type MetaFunction,
+  type LoaderFunction,
+  Form,
+  redirect,
+  useTransition,
+  useLoaderData
+} from "remix";
 import {
   checkLoggedIn,
   getAuthData,
@@ -10,6 +15,7 @@ import {
   getPosts,
   redditCookie,
   refreshToken,
+  type RedditPost
 } from "~/reddit";
 import { decode } from "html-entities";
 
