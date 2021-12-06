@@ -6,7 +6,8 @@ import {
   Form,
   redirect,
   useTransition,
-  useLoaderData
+  useLoaderData,
+  useNavigate
 } from "remix";
 import {
   checkLoggedIn,
@@ -111,6 +112,26 @@ export function Post({ post }: { post: RedditPost }) {
   );
 }
 
+export function NavigationButtons() {
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+
+  return (
+    <div className="text-center space-x-4">
+      <button onClick={goBack} className="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-white hover:border-transparent hover:bg-green-700">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        </svg>
+      </button>
+      <button type="submit" className="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-white hover:border-transparent hover:bg-green-700">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 export function Posts() {
   let { posts } = useLoaderData<IndexData>();
   let transition = useTransition();
@@ -121,8 +142,8 @@ export function Posts() {
       <Loading />
     ) : (
       <Form method="get">
-        <div className="text-center">
-          <button type="submit" className="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-white hover:border-transparent hover:bg-green-700 mt-8 mb-0">Next Page</button>
+        <div className="mt-8 mb-0">
+          <NavigationButtons />
         </div>
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
           <div className="grid grid-cols-1 gap-12">
@@ -132,8 +153,8 @@ export function Posts() {
           </div>
         </section >
         <input type="hidden" value={lastId} name="after" />
-        <div className="text-center">
-          <button type="submit" className="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-white hover:border-transparent hover:bg-green-700 mt-4 lg:mt-0 mb-12">Next Page</button>
+        <div className="mb-8 mt-0">
+          <NavigationButtons />
         </div>
       </Form>
     )
